@@ -1,6 +1,7 @@
 import { createStore, compose, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 // import throttle from 'lodash/throttle'
+import { routerMiddleware } from 'react-router-redux'
 
 import rootReducer from './reducers'
 // import { loginWithToken } from './actions'
@@ -244,9 +245,12 @@ const emptyInitialState = {}
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
+// Build the middleware for intercepting and dispatching navigation actions
+const middleware = routerMiddleware()
+
 export const store = createStore(rootReducer, emptyInitialState,
     composeEnhancers(
-        applyMiddleware(thunk, logger)
+        applyMiddleware(thunk, logger, middleware)
     )
 )
 

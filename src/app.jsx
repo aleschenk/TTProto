@@ -17,6 +17,8 @@ import AppBar from 'material-ui/AppBar'
 import Login from './components/login/Login'
 import Home from './components/home/Home'
 
+import { PrivateRoute } from './components/PrivateRoute'
+
 const Header = () => (
   <AppBar title="Tomo Turnos" iconClassNameRight="muidocs-icon-navigation-expand-more" />
 )
@@ -25,7 +27,8 @@ const App = ({ user }) => (
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <div>
       <Header/>
-      {user.access_token ? <Route path="/" component={Home} /> : <Redirect to="/login" />}
+      {/*{user.access_token ? <Route exact path="/" component={Home} /> : <Redirect to="/login" />}*/}
+      <Route exact path="/" component={Home} />
       <Route path="/login" component={Login}/>
     </div>
   </MuiThemeProvider>

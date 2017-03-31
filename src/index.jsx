@@ -17,20 +17,30 @@ import App from './app.jsx'
 
 // import rootReducer from './reducers/index.js'
 
+// React-Router-Redux
+import { ConnectedRouter } from 'react-router-redux'
+
+// import { createHistory } from 'history'
+import createHistory from 'history/createBrowserHistory'
+
 import 'moment/locale/es';
 
 import { store } from './store'
 
 // let store = createStore(rootReducer, applyMiddleware(thunk))
 
+const history = createHistory()
+
 injectTapEventPlugin();
 
 render( 
   <AppContainer>
     <Provider store={store}>
-      <Router history={history}>
+      <ConnectedRouter history={history}>
+      {/*<Router history={history}>*/}
         <App/>
-      </Router>
+      {/*</Router>*/}
+      </ConnectedRouter>
     </Provider>
   </AppContainer>,
   document.querySelector("#app"))
@@ -41,9 +51,11 @@ if (module && module.hot) {
     render(
       <AppContainer>
         <Provider store={store}>
+          {/*<ConnectedRouter history={history}>*/}
           <Router history={history}>
             <App/>
           </Router>
+          {/*</ConnectedRouter>*/}
         </Provider>
       </AppContainer>,
       document.querySelector("#app")

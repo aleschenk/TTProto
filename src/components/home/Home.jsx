@@ -66,7 +66,8 @@ class Menu extends React.Component {
 const Home = ({ user }) => (
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <div>
-      {user.access_token ? <Route path="/" component={Menu} /> : <Redirect to="/login" />}
+      {user.access_token ? <Menu/> : <Redirect to="/login" />}
+      Home
     </div>
   </MuiThemeProvider>
 )
