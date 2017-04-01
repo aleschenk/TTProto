@@ -5,7 +5,7 @@ import '../styles/index.scss'
 import { connect } from 'react-redux'
 
 // React Router
-import {Route, Redirect} from 'react-router-dom'
+import {Route, Redirect, Switch} from 'react-router-dom'
 
 // Material
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -27,8 +27,11 @@ const App = ({ user }) => (
   <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
     <div>
       <Header/>
-      {/*{user.access_token ? <Route exact path="/" component={Home} /> : <Redirect to="/login" />}*/}
-      <Route exact path="/" component={Home} />
+      {/*{user.access_token ? 
+      <Route path="/home" component={Home}/> :
+      <Redirect to="/login" />}*/}
+      {/*<PrivateRoute path="/" component={Home}/>*/}
+      <Route path="/" component={Home}/>
       <Route path="/login" component={Login}/>
     </div>
   </MuiThemeProvider>

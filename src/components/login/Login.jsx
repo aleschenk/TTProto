@@ -31,7 +31,7 @@ const Login = ({ user, login }) => {
       <TextField name="username" type="text" floatingLabelText="Email" value="angeles@a"/><br />
       <TextField name="password" type="password" floatingLabelText="Password" value="1"/><br />
       <RaisedButton type="submit" label="Log In" primary={true} style={style}/>
-      {user.access_token && <Redirect to="/" />}
+      {user.access_token &&  <Redirect to="/" />}
     </form>
   )
 }
@@ -41,9 +41,9 @@ Login.propTypes = {
   login: React.PropTypes.func.isRequired
 }
 
-const mapStateToProps = state => ({ user: state.user })
+// const mapStateToProps = state => ({ user: state.user })
 
-export default connect(mapStateToProps, { login } )(Login)
+export default connect(state => ({ user: state.user }), { login } )(Login)
 
 
 /*

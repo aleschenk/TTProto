@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+
 import {
   BrowserRouter as Router,
   Route,
@@ -21,15 +23,20 @@ const fakeAuth = {
 
 const PrivateRoute = ({ component, ...rest }) => (
   <Route {...rest} render={props => (
-    fakeAuth.isAuthenticated ? (
+    props.user.access_token ? 
       React.createElement(component, props)
-    ) : (
+     : 
       <Redirect to={{
         pathname: '/login',
         state: { from: props.location }
       }}/>
-    )
   )}/>
 )
 
-export default PrivateRoute
+// PrivateRoute.propTypes = {
+  // user: React.PropTypes.shape({}).isRequired
+// }
+
+export default connect(state => ({ user: state.user }), { } )(PrivateRoute)
+
+// export default PrivateRoute

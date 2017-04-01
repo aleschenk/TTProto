@@ -3,7 +3,8 @@ const user = (state = {}, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
       console.log('LOGIN_SUCCESS')
-      return action.data
+      return Object.assign({}, state, action.data )
+      //return action.data
 
     case 'LOGIN_FAILURE':
       return {}

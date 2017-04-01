@@ -8,9 +8,6 @@ import { connect } from 'react-redux'
 import {BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom'
 
 // Material
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme'
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
 import {Tabs, Tab} from 'material-ui/Tabs'
@@ -64,12 +61,9 @@ class Menu extends React.Component {
 }
 
 const Home = ({ user }) => (
-  <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-    <div>
-      {user.access_token ? <Menu/> : <Redirect to="/login" />}
-      Home
-    </div>
-  </MuiThemeProvider>
+  user.access_token ? 
+    <Menu/> : 
+    <Redirect to="/login"/>
 )
 
 Home.propTypes = {

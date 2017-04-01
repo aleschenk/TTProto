@@ -19,6 +19,7 @@ import App from './app.jsx'
 
 // React-Router-Redux
 import { ConnectedRouter } from 'react-router-redux'
+import { Route } from 'react-router-dom'
 
 // import { createHistory } from 'history'
 import createHistory from 'history/createBrowserHistory'
@@ -38,7 +39,8 @@ render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
       {/*<Router history={history}>*/}
-        <App/>
+        {/*<App/>*/}
+        <Route path="/" component={App}/>
       {/*</Router>*/}
       </ConnectedRouter>
     </Provider>
@@ -51,11 +53,11 @@ if (module && module.hot) {
     render(
       <AppContainer>
         <Provider store={store}>
-          {/*<ConnectedRouter history={history}>*/}
-          <Router history={history}>
+          <ConnectedRouter history={history}>
+          {/*<Router history={history}>*/}
             <App/>
-          </Router>
-          {/*</ConnectedRouter>*/}
+          {/*</Router>*/}
+          </ConnectedRouter>
         </Provider>
       </AppContainer>,
       document.querySelector("#app")
