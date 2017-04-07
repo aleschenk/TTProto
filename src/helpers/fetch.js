@@ -13,3 +13,22 @@ export const post = async ({ url, body, success, failure, dispatch }) => {
     dispatch({ type: failure })
   }
 }
+
+export const get = async ({ url, body, success, failure, dispatch }) => {
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer + ${token}'
+      },
+      body: JSON.stringify(body),
+    })
+    const data = await res.json()
+    dispatch({ type: success, data })
+  } catch (e) {
+    dispatch({ type: failure })
+  }
+}
+
+

@@ -55,7 +55,7 @@ if (module && module.hot) {
         <Provider store={store}>
           <ConnectedRouter history={history}>
           {/*<Router history={history}>*/}
-            <App/>
+            <Route path="/" component={App}/>
           {/*</Router>*/}
           </ConnectedRouter>
         </Provider>
