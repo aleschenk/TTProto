@@ -61,16 +61,18 @@ const Events = ({user, isCancelBookingModalOpen, openCancelBookingModal}) => {
           secondaryText = {fromNow(item.fechahora)}
         />
         {/*Esto puede ser un poco lento*/}
-        <CancelBookingModal/>
         {/*{isCancelBookingModalOpen ? <CancelBookingModal/> : <div/> }*/}
       </div>
     )
   })
 
   return (
-    <List>
-      {itemsEl}
-    </List>
+    <div>
+      <List>
+        {itemsEl}
+      </List>
+      <CancelBookingModal/>
+    </div>
   )
 }
 

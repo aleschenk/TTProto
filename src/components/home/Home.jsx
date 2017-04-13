@@ -1,5 +1,6 @@
 import React from 'react'
 import '../../../styles/index.scss'
+import Schedule from '../schedule/Schedule'
 
 // Redux
 import { connect } from 'react-redux'
@@ -13,6 +14,9 @@ import AppBar from 'material-ui/AppBar'
 import {Tabs, Tab} from 'material-ui/Tabs'
 import DatePicker from 'material-ui/DatePicker'
 
+// Actions
+import { fetchCalendar } from '../../actions'
+
 // Views
 import Events from '../events/Events'
 
@@ -25,49 +29,92 @@ const styles = {
   },
 }
 
-class Menu extends React.Component {
-/*
+const Menu = ({calendar}) => {
+  return (
+    <Tabs>
+      <Tab label="Agenda">
+        <Events/>
+      </Tab>
+      <Tab label="Agendar nuevo turno">
+        <Schedule calenadar={calendar}/>
+      </Tab>
+    </Tabs>
+  )
+}
+
+// const isUserLoggedIn = state => state.user.access_token !== null
+//StatelessHome
+/*const Home = ({ user }) => {
+  return (
+    user.access_token ? 
+    <Menu/> : 
+    <Redirect to="/login"/>
+  )
+}*/
+
+class Home extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      value: 'a',
-    }
+    super(props);
   }
 
-  handleChange = (value) => {
-    this.setState({
-      value: value,
-    })
+  componentWillMount() {
+    console.log('Home::componentWillMount')
+    //Before rendering (no DOM yet)
+    //fetchCalendar()
   }
-*/
+
+  componentDidMount() {
+    console.log('Home::componentDidMount')
+    //After rendering
+    if(this.props.user.access_token)
+      this.props.dispatch(fetchCalendar(this.props.user.empresas[0].Servicios[0].$id))
+  }
+
+  componentWillUpdate() {
+    if(this.props.user.access_token) 
+      this.props.dispatch(fetchCalendar({
+        /*servicioID: this.props.user.empresas[0].Servicios[0].$id,*/
+        servicioID: 4,
+        diaDesde:'2017-04-12T17:06:51.797Z',
+        diaHasta:'2017-04-18T17:06:51.797Z'}
+        ))
+  }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('Home::RENDER')
+  // }
+
   render() {
     return (
-      <Tabs>
-        <Tab label="Agenda" value="a" >
-          <div>
-            <Events/>
-          </div>
-        </Tab>
-        <Tab label="Agendar nuevo turno" value="b">
-          <div>
-            <p>
-              Información importante: CLASE DE STRETCHING Martes y Jueves 14hs Por favor al momento de cancelar una clase tené en cuenta hacerlo con tres horas de anticipación o más para poder recuperar. En caso de que no puedas hacerlo ahora hay una opción de aviso de ausencia para que puedas ceder tu turno a otra persona. Las clases de la mañana comienzan 08:10, 09:10, 10:10 y 11.10hs Gracias UP
-            </p>
-          </div>
-        </Tab>
-      </Tabs>
+      this.props.user.access_token ? 
+      <Menu calendar={this.props.calendar} /> : 
+      <Redirect to="/login"/>
     )
   }
 }
 
-const Home = ({ user }) => (
-  user.access_token ? 
-    <Menu/> : 
-    <Redirect to="/login"/>
-)
 
 Home.propTypes = {
   user: React.PropTypes.shape({}).isRequired,
 }
 
-export default connect(state => ({ user: state.user }))(Home)
+export default connect(state => ({ user: state.user, calendar: state.calendar }))(Home)
+
+
+  /*constructor(props) {
+    super(props)
+    this.state = {
+      value: 'a',
+    }
+  }*/
+
+  /*handleChange = (value) => {
+    this.setState({
+      value: value,
+    })
+  }*/
+
+  // componentDidMount() {
+  //   console.log('COMPONENT DID MOUNT')
+  //   fetchCalendar()
+  // }

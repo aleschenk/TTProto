@@ -1,4 +1,4 @@
-import { post } from '../helpers/fetch.js'
+import { post, postForm, get } from '../helpers/fetch.js'
 
 export const login = ({ username, password }) => (dispatch) => {
   dispatch({ type: 'LOGIN_REQUEST' })
@@ -9,15 +9,20 @@ export const login = ({ username, password }) => (dispatch) => {
     failure: 'LOGIN_FAILURE',
     dispatch,
   })
+  // dispatch({ type: 'FETCH_CALENDAR_REQUEST' })
 }
 
-export const fetchActiveTurns = ({}) => (dispatch) => {
-  dispatch({ type: 'LOGIN_REQUEST' })
-  get({
-    url: 'http://api2.tomoturnos.com/api/EditarPerfil/Pendientes/167',
-    body: { username, password },
-    success: 'LOGIN_SUCCESS',
-    failure: 'LOGIN_FAILURE',
+export const fetchCalendar = ({servicioID, diaDesde, diaHasta}) => (dispatch) => {
+  dispatch({ type: 'CALENDAR_REQUEST' })
+  var formData = new FormData()
+  formData.append('servicioID', servicioID)
+  formData.append('diaDesde', diaDesde)
+  formData.append('diaHasta', diaHasta)
+  postForm({
+    url: 'http://api2.tomoturnos.com/api/Calendario',
+    formData: formData,
+    success: 'CALENDAR_SUCCESS',
+    failure: 'CALENDAR_FAILURE',
     dispatch,
   })
 
@@ -31,7 +36,6 @@ export const fetchActiveTurns = ({}) => (dispatch) => {
 // "turnosTomadosRestantes":10,"turnosPorTomar":5,"turnosProximosAVencer":5,"creditoRetenidoProxPeriodo":0,
 // "turnosACreditoProxPeriodo":0,"proximoPago":"2017-03-31T00:00:00"}
 }
-
 
 export const confirmBookingCancelation = ({clienteID, servicioID, fechaHora, razonCancelacion, cancelacionEnum}) => (dispatch) => {
   dispatch({ type: 'CANCEL_BOOKING_REQUEST' })
