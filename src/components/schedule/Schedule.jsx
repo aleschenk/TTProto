@@ -27,11 +27,10 @@ const Schedule = ({schedule}) => {
   }
 
   const DayItems = 
-    schedule.turnos.map((day) => 
+    schedule ? schedule.turnos ? schedule.turnos.map((day) => 
     <TabPane tab={day.FechaStr} key={day.$id}>
       { day.Horarios.map( (horario) => <li>{horario.diaHora}</li> ) }
-    </TabPane>)
-
+    </TabPane>) : <div>Nothing to show</div> : <div>Nothing to show</div>
 
   return (
     <Tabs

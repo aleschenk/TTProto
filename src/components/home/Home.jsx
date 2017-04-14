@@ -29,14 +29,14 @@ const styles = {
   },
 }
 
-const Menu = ({calendar}) => {
+const Menu = () => {
   return (
     <Tabs>
       <Tab label="Agenda">
         <Events/>
       </Tab>
       <Tab label="Agendar nuevo turno">
-        <Schedule calenadar={calendar}/>
+        <Schedule/>
       </Tab>
     </Tabs>
   )
@@ -66,12 +66,8 @@ class Home extends React.Component {
   componentDidMount() {
     console.log('Home::componentDidMount')
     //After rendering
-    if(this.props.user.access_token)
-      this.props.dispatch(fetchCalendar(this.props.user.empresas[0].Servicios[0].$id))
-  }
-
-  componentWillUpdate() {
     if(this.props.user.access_token) 
+    console.log('Home::FETCHING CALENDAR')
       this.props.dispatch(fetchCalendar({
         /*servicioID: this.props.user.empresas[0].Servicios[0].$id,*/
         servicioID: 4,
@@ -79,6 +75,16 @@ class Home extends React.Component {
         diaHasta:'2017-04-18T17:06:51.797Z'}
         ))
   }
+
+  // componentWillUpdate() {
+  //   if(this.props.user.access_token) 
+  //     this.props.dispatch(fetchCalendar({
+  //       /*servicioID: this.props.user.empresas[0].Servicios[0].$id,*/
+  //       servicioID: 4,
+  //       diaDesde:'2017-04-12T17:06:51.797Z',
+  //       diaHasta:'2017-04-18T17:06:51.797Z'}
+  //       ))
+  // }
 
   // shouldComponentUpdate(nextProps, nextState) {
   //   console.log('Home::RENDER')
@@ -98,7 +104,7 @@ Home.propTypes = {
   user: React.PropTypes.shape({}).isRequired,
 }
 
-export default connect(state => ({ user: state.user, calendar: state.calendar }))(Home)
+export default connect(state => ({ user: state.user }))(Home)
 
 
   /*constructor(props) {
