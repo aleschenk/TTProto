@@ -9,7 +9,6 @@ export const login = ({ username, password }) => (dispatch) => {
     failure: 'LOGIN_FAILURE',
     dispatch,
   })
-  // dispatch({ type: 'FETCH_CALENDAR_REQUEST' })
 }
 
 export const fetchCalendar = ({servicioID, diaDesde, diaHasta}) => (dispatch) => {

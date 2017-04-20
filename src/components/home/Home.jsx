@@ -63,8 +63,8 @@ class Home extends React.Component {
     //fetchCalendar()
   }
 
-  componentDidMount() {
-    console.log('Home::componentDidMount')
+  componentWillReceiveProps() {
+    console.log('Home::componentWillReceiveProps')
     //After rendering
     if(this.props.user.access_token) 
     console.log('Home::FETCHING CALENDAR')
