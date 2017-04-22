@@ -5,7 +5,7 @@ import Tabs, { TabPane } from 'rc-tabs'
 import TabContent from 'rc-tabs/lib/TabContent'
 import ScrollableInkTabBar from 'rc-tabs/lib/ScrollableInkTabBar'
 import ScheduleWeekDays from './ScheduleWeekDays'
-import ScheduleTimeList from './ScheduleTimeList'
+import { ScheduleTimeListDate } from './ScheduleTimeList'
 
 // Redux
 import { connect } from 'react-redux'
@@ -22,7 +22,8 @@ const Schedule = ({schedule}) => {
   const DayItems = 
     schedule ? schedule.turnos ? schedule.turnos.map((day) => 
     <TabPane tab={day.FechaStr} key={day.$id}>
-      { day.Horarios.map( (horario) => <li>{horario.diaHora}</li> ) }
+      { day.Horarios.map( (horario) => <ScheduleTimeListDate key={horario.diaHora} hour={horario.diaHora} isAvailable={true}/> ) }
+      {/*{ day.Horarios.map( (horario) => <li>{horario.diaHora}</li> ) }*/}
     </TabPane>) : <div>Nothing to show</div> : <div>Nothing to show</div>
 
   return (

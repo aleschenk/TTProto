@@ -1,21 +1,21 @@
+import React from 'react'
+import moment from 'moment'
+
 // ----------------------------------------
 //        SCHEDULE TIME LIST
 // ----------------------------------------
-const ScheduleTimeList = ({
-  daysOfMonths,
-  date
-}) => {
+const ScheduleTimeList = ({ daysOfMonths, date }) => {
   // filter the turns of current day
   const dayFiltered = daysOfMonths.find(dateCompare => isSameDate(date, dateCompare.date));
   const turns = dayFiltered.turns;
   return (
     <div className="schedule-time-list">
-      {turns.map(turn => <ScheduleTimeListDate isAvailable={turn.isAvailable} hour={turn.date}/>)}
+      {turns.map(turn => <ScheduleTimeListDate key={hour} isAvailable={turn.isAvailable} hour={turn.date}/>)}
     </div>
   )
 }
 
-const ScheduleTimeListDate = ({
+export const ScheduleTimeListDate = ({
   hour,
   isAvailable
 }) => {
@@ -26,7 +26,7 @@ const ScheduleTimeListDate = ({
   }
 
   return (
-    <div className={className}>{moment(hour).format('HH:MM')}</div>
+    <div key={hour} className={className}>{moment(hour).format('HH:MM')}</div>
   )
 }
 
