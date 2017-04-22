@@ -1,0 +1,126 @@
+// commons scss ------
+$active-color: #00bcd4;
+$font-color: #000;
+$bg-hover: #f6f6f6;
+$color-disabled: gray;
+$font-color-disabled: lightgray;
+
+.card-shadow {
+  box-shadow: 0px 8px 10px -5px rgba(163, 163, 163, 1);
+  border-bottom: solid 1px lightgray;
+}
+
+@mixin font-normal {
+  font-weight: 400;
+}
+
+.font-normal {
+  font-weight: 400;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.font-lighter {
+  font-weight: 100;
+}
+
+// schedule.scss ------
+.schedule {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+}
+
+// scheduleHeader.scss ------
+.shedule-header {
+  text-align: center;
+  font-size: 1.5em;
+  padding: 1em;
+  --background-color: red;
+}
+
+.schedule-week-days {
+  display: flex;
+  height: 7em;
+  margin: 1em;
+  flex-direction: row;
+  align-items: start;
+  font-weight: 300;
+  overflow-x: auto;
+  --background-color: blue;
+  
+  &__date {
+    padding: 0.5em 1em;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    &.is-active {
+      border-bottom: solid 2px $active-color;
+      background-color: $bg-hover;
+    }
+    &.is-disabled {
+      color: $color-disabled;
+      &:hover {
+        background-color: initial;
+        border-bottom: none;
+        cursor: initial;
+      }
+      &:active {
+        transform: translatey(0);
+      }
+    }
+    &:hover {
+      border-bottom: solid 2px $active-color;
+      background-color: $bg-hover;
+    }
+    &:active {
+      transform: translatey(5px);
+    }
+    &-name {
+      padding: 1em 0;
+    }
+    &-number {}
+  }
+}
+
+.schedule-time-list {
+  display: flex;
+  height: 15em;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  overflow: auto;
+  margin-top: -15px;
+  --background-color: yellow;
+  &__hour {
+    line-height: 2em;
+    width: calc(100% - 2em);
+    padding: 0.2em;
+    margin: 0.5em;
+    text-align: center;
+    cursor: pointer;
+    color: $font-color;
+    border-top: solid 2px $active-color;
+    transition: all .3s;
+    --background-color: gray;
+    &.is-disabled {
+      color: gray;
+      border-top: solid 2px orange;
+      &:hover {
+        transform: translatey(0);
+      }
+    }
+    &:hover {
+      @include font-normal;
+      transform: translatey(3px);
+      background-color: $bg-hover;
+    }
+    &:active {
+      transform: translatey(5px);
+    }
+  }
+}

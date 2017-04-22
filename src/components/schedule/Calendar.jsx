@@ -46,8 +46,9 @@ class AppTest extends React.Component {
 
 }
 
-// schedule.jsx -------------
-
+// ----------------------------------------
+//          SCHEDULE
+// ----------------------------------------
 const Schedule = ({
   dateSelected,
   availableHours,
@@ -64,8 +65,9 @@ const Schedule = ({
   )
 }
 
-// ScheduleHeader.jsx -------------
-
+// ----------------------------------------
+//        SCHEDULE HEADER
+// ----------------------------------------
 const ScheduleHeader = ({
   date,
   disabled
@@ -74,8 +76,9 @@ const ScheduleHeader = ({
   return (<div className="shedule-header card-shadow font-light">{moment(date).format('MMMM, YYYY').toString()}</div>)
 }
 
-// scheduleWeekDays.jsx -------------
-
+// ----------------------------------------
+//        SCHEDULE WEEK DAYS
+// ----------------------------------------
 const ScheduleWeekDays = ({
   onSelectedDate,
   date,
@@ -99,8 +102,6 @@ const ScheduleWeekDays = ({
     <div className="schedule-week-days">{scheduleWeekDaysDates}</div>
   )
 }
-
-// scheduleWeekDaysDate.jsx -------------
 
 const ScheduleWeekDaysDate = ({
   dayNumber,
@@ -136,8 +137,9 @@ const ScheduleWeekDaysDate = ({
   return el
 }
 
-// scheduleTimeList.jsx -----------
-
+// ----------------------------------------
+//        SCHEDULE TIME LIST
+// ----------------------------------------
 const ScheduleTimeList = ({
   daysOfMonths,
   date
@@ -167,8 +169,10 @@ const ScheduleTimeListDate = ({
   )
 }
 
-// Helper functions ----
 
+// ----------------------------------------
+//        HELPER FUNCTIONS
+// ----------------------------------------
 const getDaysOfMonths = (customMonth, daysInformation) => {
   // is not defined custom month, just return days of current month
   const startDate = customMonth ? moment(customMonth).startOf('month') : moment().startOf('month');

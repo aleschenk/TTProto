@@ -6,12 +6,12 @@ import Schedule from '../schedule/Schedule'
 import { connect } from 'react-redux'
 
 // React Router
-import {BrowserRouter as Router, Route, Link, Redirect} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
 
 // Material
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 import AppBar from 'material-ui/AppBar'
-import {Tabs, Tab} from 'material-ui/Tabs'
+import { Tabs, Tab } from 'material-ui/Tabs'
 import DatePicker from 'material-ui/DatePicker'
 
 // Actions
@@ -33,68 +33,38 @@ const Menu = () => {
   return (
     <Tabs>
       <Tab label="Agenda">
-        <Events/>
+        <Events />
       </Tab>
       <Tab label="Agendar nuevo turno">
-        <Schedule/>
+        <Schedule />
       </Tab>
     </Tabs>
   )
 }
 
-// const isUserLoggedIn = state => state.user.access_token !== null
-//StatelessHome
-/*const Home = ({ user }) => {
-  return (
-    user.access_token ? 
-    <Menu/> : 
-    <Redirect to="/login"/>
-  )
-}*/
-
 class Home extends React.Component {
+
   constructor(props) {
     super(props);
   }
 
-  componentWillMount() {
-    console.log('Home::componentWillMount')
-    //Before rendering (no DOM yet)
-    //fetchCalendar()
-  }
-
   componentWillReceiveProps() {
-    console.log('Home::componentWillReceiveProps')
     //After rendering
-    if(this.props.user.access_token) 
-    console.log('Home::FETCHING CALENDAR')
+    if (this.props.user.access_token)
       this.props.dispatch(fetchCalendar({
         /*servicioID: this.props.user.empresas[0].Servicios[0].$id,*/
         servicioID: 4,
-        diaDesde:'2017-04-12T17:06:51.797Z',
-        diaHasta:'2017-04-18T17:06:51.797Z'}
-        ))
+        diaDesde: '2017-04-12T17:06:51.797Z',
+        diaHasta: '2017-04-18T17:06:51.797Z'
+      }
+      ))
   }
-
-  // componentWillUpdate() {
-  //   if(this.props.user.access_token) 
-  //     this.props.dispatch(fetchCalendar({
-  //       /*servicioID: this.props.user.empresas[0].Servicios[0].$id,*/
-  //       servicioID: 4,
-  //       diaDesde:'2017-04-12T17:06:51.797Z',
-  //       diaHasta:'2017-04-18T17:06:51.797Z'}
-  //       ))
-  // }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('Home::RENDER')
-  // }
 
   render() {
     return (
-      this.props.user.access_token ? 
-      <Menu calendar={this.props.calendar} /> : 
-      <Redirect to="/login"/>
+      this.props.user.access_token ?
+        <Menu calendar={this.props.calendar} /> :
+        <Redirect to="/login" />
     )
   }
 }
@@ -105,22 +75,3 @@ Home.propTypes = {
 }
 
 export default connect(state => ({ user: state.user }))(Home)
-
-
-  /*constructor(props) {
-    super(props)
-    this.state = {
-      value: 'a',
-    }
-  }*/
-
-  /*handleChange = (value) => {
-    this.setState({
-      value: value,
-    })
-  }*/
-
-  // componentDidMount() {
-  //   console.log('COMPONENT DID MOUNT')
-  //   fetchCalendar()
-  // }

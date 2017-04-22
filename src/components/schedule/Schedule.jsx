@@ -4,26 +4,19 @@ import ReactDOM from 'react-dom'
 import Tabs, { TabPane } from 'rc-tabs'
 import TabContent from 'rc-tabs/lib/TabContent'
 import ScrollableInkTabBar from 'rc-tabs/lib/ScrollableInkTabBar'
+import ScheduleWeekDays from './ScheduleWeekDays'
+import ScheduleTimeList from './ScheduleTimeList'
 
 // Redux
 import { connect } from 'react-redux'
 
 const Schedule = ({schedule}) => {
 
-  const days = () => (
-    longNames => ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo' ],
-    shortNames => ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do' ]
-  )
-
-  const callback = ({key}) => {
-
+  const isSameDate = (date, dateCompare) => {
+    return moment(date).format('YYYYMMDD') === moment(dateCompare).format('YYYYMMDD');
   }
 
-  //const DayItems = 
-    //['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do' ].map((day) => <TabPane tab={day} key={day}/>)
-  
-  const turns = () => {
-
+  const callback = ({key}) => {
   }
 
   const DayItems = 

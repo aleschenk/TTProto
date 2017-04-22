@@ -60,8 +60,6 @@ const Events = ({user, isCancelBookingModalOpen, openCancelBookingModal}) => {
           primaryText = {formatDate(item.fechahora)}
           secondaryText = {fromNow(item.fechahora)}
         />
-        {/*Esto puede ser un poco lento*/}
-        {/*{isCancelBookingModalOpen ? <CancelBookingModal/> : <div/> }*/}
       </div>
     )
   })
