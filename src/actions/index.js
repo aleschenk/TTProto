@@ -24,19 +24,25 @@ export const fetchCalendar = ({servicioID, diaDesde, diaHasta}) => (dispatch) =>
     failure: 'CALENDAR_FAILURE',
     dispatch,
   })
-
-// RESPONSE:
-// {"$id":"1","clienteID":167,"turnosRecupero":0,"turnosFijosConsumidos":0,"turnosFijosRestantes":10,
-// "turnosLibresTomados":0,"turnosLibresATomar":0,"turnosLibresConsumidos":0,"turnosPerdidos":0,
-// "turnosRecuperadosTomados":0,"turnosRecuperadosATomar":5,"turnosRecuperadosConsumidos":0,
-// "turnosARecuperar":5,"turnosLibresTomadosFoto":0,"turnosRecuperadosTomadosFoto":0,
-// "turnosCanceladosFoto":0,"importePago":650.0,"pagoFuturo_importePago":null,
-// "pagoFuturo_inicioActividades":null,"pagoFuturo_finActividades":null,"turnosConsumidos":0,
-// "turnosTomadosRestantes":10,"turnosPorTomar":5,"turnosProximosAVencer":5,"creditoRetenidoProxPeriodo":0,
-// "turnosACreditoProxPeriodo":0,"proximoPago":"2017-03-31T00:00:00"}
 }
 
-export const confirmBookingCancelation = ({clienteID, servicioID, fechaHora, razonCancelacion, cancelacionEnum}) => (dispatch) => {
+export const book = ({clientID, servicioID, fechaHora}) => (dispatch) => {
+  dispatch({ type: 'BOOKING_REQUEST' })
+  var formData = new FormData()
+  formData.append('clienteID', clientID)
+  formData.append('servicioID', servicioID)
+  formData.append('fechaHora', fechaHora)
+  postForm({
+    url: 'http://api2.tomoturnos.com/api/Convencional',
+    formData: formData,
+    success: 'BOOKING_SUCCESS',
+    failure: 'BOOKING_FAILURE',
+    dispatch,
+  })
+}
+
+
+export const confirmCancelation = ({clienteID, servicioID, fechaHora, razonCancelacion, cancelacionEnum}) => (dispatch) => {
   dispatch({ type: 'CANCEL_BOOKING_REQUEST' })
   post({
     url: 'http://api2.tomoturnos.com/api/Cancelar/Cancel',

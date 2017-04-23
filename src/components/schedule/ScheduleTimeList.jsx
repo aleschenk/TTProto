@@ -1,6 +1,8 @@
 import React from 'react'
 import moment from 'moment'
 
+import RaisedButton from 'material-ui/RaisedButton';
+
 // ----------------------------------------
 //        SCHEDULE TIME LIST
 // ----------------------------------------
@@ -26,7 +28,10 @@ export const ScheduleTimeListDate = ({
   }
 
   return (
-    <div key={hour} className={className}>{moment(hour).format('HH:MM')}</div>
+    <div key={hour} className={className}>
+      {moment(hour).format('HH:MM')}
+      <RaisedButton label="Reservar" primary={true}/>
+    </div>
   )
 }
 
