@@ -2,7 +2,7 @@ export const initialStateOnlyForTest = {
     user: {
         "$id": "1",
         "versionNumber": 106,
-        "access_token": "01eJu1Kl8biBPge8rk6-FmkE7JFS9Dm0kQI5WPhsOI6D1M1PQusolmrCi5gkLknWIPETRK-5FuIMFPhFFq0sLAfy9-ND4QdSYABc5P--K_a3rKV6AUvw3cUDYg205hSuZFy2pA5jktaZf0AxzpA49yolQZfWb9l40Y4csE-2v5dwHJlV7fTgZZeQPgOhCwpedkwWuC8fwOxnQ9Gzu6UtT2QaiZ2IBhcNFucvsm7M4IaOJuyP8cF-P54FlMoCDwKFhbylsoIBEAml4lY7dFz3A5qn9QjtBfuP-RfClMkLKxizSIfvDh_GzG9rJHu73lmK3y8eHT1_TpgEa88YbBE4h1gNE4OxcyWYT3pow963VcQMVBXNQqwOEV-15OlT2_rXL9Pk0N29b45s6q2xrYlMqATgFNoqJqx9OP8ZMdnSvikDzfy7Za2auQEgiNgGqN97",
+        "access_token": "ziHPXs5WsRvJ-p5zavoWXZ8dxb4YTNVUThXpx9HgmmZC0drUgHuy7l6i8WsNsAyuQV8a4Z0WKuyz1TmHNXKypZeVdwFkg5Yms3ox2dQn3xMZ4wVIYuaprgyrqXeDuXoz9R8MdQu6IcbDr-Wls_BC6ymw6zdEbtc_sGacyHuRZImA2JPwPzp8s2kIkegkC9Xm3p6LIXzg5JNprOOBUDazBc0MS3lh5qHEEDlYqvzmprYf-g4LZArMl4lLHfpjf1LCPstzwNnpKpasqxuCjyRlu-12vVjIlDK3ILLRNEK0rSNIBK7q3jwwmUMgtZ3zppILNtkzTq46KG8VBQPCSxm4EjHHZi4O2jOyeRaOkbLIh5nQWPRbhkfDlegDvRDKBsYMAB9wbSnUy5LL1vbeNohwzXo25VHmVCgoMyddxBFYXCK3JkqHt04UosoA_MbPMfjM",
         "permisos": [
             "tomar_y_cancelar_turnos",
             "turnos",

@@ -15,7 +15,7 @@ import { Tabs, Tab } from 'material-ui/Tabs'
 import DatePicker from 'material-ui/DatePicker'
 
 // Actions
-import { fetchCalendar } from '../../actions'
+import { fetchCalendar, fetchInitialData } from '../../actions'
 
 // Views
 import Events from '../events/Events'
@@ -51,9 +51,9 @@ class Home extends React.Component {
   componentWillReceiveProps() {
     //After rendering
     if (this.props.user.access_token)
-      this.props.dispatch(fetchCalendar({
-        /*servicioID: this.props.user.empresas[0].Servicios[0].$id,*/
-        servicioID: 4,
+      this.props.dispatch(fetchInitialData({
+        servicios: this.props.user.empresas[0].Servicios,
+        /*servicioID: 4, esto para el fetch calendar*/
         diaDesde: '2017-04-12T17:06:51.797Z',
         diaHasta: '2017-04-18T17:06:51.797Z'
       }

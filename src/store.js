@@ -24,8 +24,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 // Build the middleware for intercepting and dispatching navigation actions
 const middleware = routerMiddleware()
 
-export const store = createStore(rootReducer, initialStateOnlyForTest,
-// export const store = createStore(rootReducer, emptyInitialState,
+// export const store = createStore(rootReducer, initialStateOnlyForTest,
+export const store = createStore(rootReducer, emptyInitialState,
     composeEnhancers(
         applyMiddleware(thunk, logger, middleware)
     )

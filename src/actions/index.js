@@ -11,6 +11,40 @@ export const login = ({ username, password }) => (dispatch) => {
   })
 }
 
+export const fetchInitialData = ({servicios, diaDesde, diaHasta}) => async (dispatch) => {
+  dispatch({ type: 'FETCH_INITIAL_DATA' })
+
+  // Promise.all([get({}), get({}), get({})])
+
+  try {
+    dispatch({ type: 'FETCH_ACTIVE_TURNS_DATA' })
+    const activeTurns = await get({
+      url: 'http://api2.tomoturnos.com/api/EditarPerfil/Pendientes/' + servicios[0].clienteID,
+      dispatch,
+    })
+
+    console.log("JSON: " + JSON.stringify(activeTurns))
+
+    var formData = new FormData()
+    formData.append('servicioID', 4)
+    formData.append('diaDesde', diaDesde)
+    formData.append('diaHasta', diaHasta)
+
+    dispatch({ type: 'FETCH_CALENDAR_DATA' })
+    const calendar = await postForm({
+      url: 'http://api2.tomoturnos.com/api/Calendario',
+      formData: formData,
+      success: 'FETCH_CALENDAR_SUCCESS',
+      failure: 'FETCH_CALENDAR_FAILURE',
+      dispatch,
+    })
+
+    dispatch({ type: 'FETCH_INITIAL_DATA_SUCCESS' })
+  } catch (e) {
+    dispatch({ type: 'FETCH_INITIAL_DATA_FAILURE' })
+  }
+}
+
 export const fetchCalendar = ({servicioID, diaDesde, diaHasta}) => (dispatch) => {
   dispatch({ type: 'CALENDAR_REQUEST' })
   var formData = new FormData()
@@ -40,7 +74,6 @@ export const book = ({clientID, servicioID, fechaHora}) => (dispatch) => {
     dispatch,
   })
 }
-
 
 export const confirmCancelation = ({clienteID, servicioID, fechaHora, razonCancelacion, cancelacionEnum}) => (dispatch) => {
   dispatch({ type: 'CANCEL_BOOKING_REQUEST' })

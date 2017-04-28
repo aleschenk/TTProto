@@ -1,26 +1,27 @@
-export const post = async ({ url, body, success, failure, dispatch }) => {
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
-    })
-    const data = await res.json()
-    dispatch({ type: success, data })
-  } catch (e) {
-    dispatch({ type: failure })
-  }
-}
-
-export const get = async ({ url, body, success, failure, dispatch }) => {
+export const get = async ({ url, success, failure, dispatch }) => {
   try {
     const res = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + localStorage.getItem('auth_token')
+      }
+    })
+    const data = await res.json()
+    // dispatch({ type: success, data })
+    return data
+  } catch (e) {
+    log.error("ERROR: " + e.message);
+    // dispatch({ type: failure })
+  }
+}
+
+export const post = async ({ url, body, success, failure, dispatch }) => {
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     })
@@ -47,8 +48,6 @@ export const postForm = async ({ url, formData, success, failure, dispatch }) =>
     dispatch({ type: failure })
   }
 }
-
-
 
 function urlencodeFormData(fd){
     var s = '';
