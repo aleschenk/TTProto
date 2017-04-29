@@ -19,7 +19,7 @@ export const fetchInitialData = ({servicios, diaDesde, diaHasta}) => async (disp
   try {
     dispatch({ type: 'FETCH_ACTIVE_TURNS_DATA' })
     const activeTurns = await get({
-      url: 'http://api2.tomoturnos.com/api/EditarPerfil/Pendientes/' + servicios[0].clienteID,
+      url: 'http://api2.tomoturnos.com/api/TurnosOtorgados/GetClienteFull/' + servicios[0].clienteID,
       dispatch,
     })
 
