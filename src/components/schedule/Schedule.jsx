@@ -1,53 +1,90 @@
-import 'rc-tabs/assets/index.css'
+// Schedule
 import React from 'react'
-import ReactDOM from 'react-dom'
-import Tabs, { TabPane } from 'rc-tabs'
-import TabContent from 'rc-tabs/lib/TabContent'
-import ScrollableInkTabBar from 'rc-tabs/lib/ScrollableInkTabBar'
-import ScheduleWeekDays from './ScheduleWeekDays'
-import { ScheduleTimeListDate } from './ScheduleTimeList'
+
+// Material
+// import MobileTearSheet from './MobileTearSheet'
+import {List, ListItem} from 'material-ui/List'
+import IconButton from 'material-ui/IconButton'
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import IconMenu from 'material-ui/IconMenu'
+import MenuItem from 'material-ui/MenuItem'
+import {grey400} from 'material-ui/styles/colors'
 
 // Redux
 import { connect } from 'react-redux'
 
-const Schedule = ({schedule}) => {
+import moment from 'moment'
 
-  const isSameDate = (date, dateCompare) => {
-    return moment(date).format('YYYYMMDD') === moment(dateCompare).format('YYYYMMDD');
-  }
+import CancelBookingModal from './CancelBookingModal'
 
-  const callback = ({key}) => {
-  }
+// Local
+import { openCancelBookingModal } from '../../actions'
 
-  const DayItems = 
-    schedule ? schedule.turnos ? schedule.turnos.map((day) => 
-    <TabPane tab={day.FechaStr} key={day.$id}>
-      { day.Horarios.map( (horario) => 
-      <ScheduleTimeListDate 
-                        key={horario.diaHora}
-                        hour={horario.diaHora}
-                        isAvailable={true}
-      /> )}
-      {/*{ day.Horarios.map( (horario) => <li>{horario.diaHora}</li> ) }*/}
-    </TabPane>) : <div>Nothing to show</div> : <div>Nothing to show</div>
+const Schedule = ({user, schedule, isCancelBookingModalOpen, openCancelBookingModal}) => {
 
-  return (
-    <Tabs
-      defaultActiveKey="2"
-      onChange={callback}
-      renderTabBar={()=><ScrollableInkTabBar />}
-      renderTabContent={()=><TabContent />}
-    >
-    {DayItems}
-    </Tabs>
+  const formatDate = (date) => 
+    moment(date).format('LLLL').toString()
+
+  const prefix = (date) =>
+    moment().isBefore(date) ? 'Comienza ' : 'Evento finalizado '
+
+  const fromNow = (date) => 
+    prefix(date) + moment(date).fromNow().toString()
+
+  const handleCancelClick = (eventId) => 
+    openCancelBookingModal(eventId)
+
+  const iconButtonElement = (
+    <IconButton
+      touch={true}
+      tooltip="more"
+      tooltipPosition="bottom-left">
+      <MoreVertIcon color={grey400} />
+    </IconButton>
   )
 
+  const rightIconMenu = (item) => (
+    <IconMenu iconButtonElement={iconButtonElement}>
+      <MenuItem onClick={() => handleCancelClick(item.$id)}>Cancelar turno {item.$id.toString()}</MenuItem>
+      <MenuItem>Cambiar de turno</MenuItem>
+    </IconMenu>
+  )
+
+  //const itemsEl = user.proximosTurnos[0].proximosTurnos.map(item => {
+  const itemsEl = schedule ? schedule.map(item => {
+    return (
+      <div>
+        <ListItem key={item.$id.toString()}
+          // leftIcon={<CommunicationCall color={indigo500} />}
+          // insetChildren={true}
+          rightIcon={rightIconMenu(item)}
+          primaryText = {formatDate(item.fechahora)}
+          secondaryText = {fromNow(item.fechahora)}
+        />
+      </div>
+    )
+  }) : <div>No hay turnos asignado</div>
+
+  return (
+    <div>
+      <List>
+        {schedule ?
+          itemsEl
+        : <div>No hay turnos asignados</div>}
+      </List>
+      <CancelBookingModal/>
+    </div>
+  )
 }
 
 Schedule.propTypes = {
-   schedule: React.PropTypes.shape({}).isRequired,
+  user: React.PropTypes.shape({}).isRequired,
+  isCancelBookingModalOpen: React.PropTypes.bool,
+  openCancelBookingModal: React.PropTypes.func.isRequired
 }
 
-export default connect(state => ({ schedule: state.schedule }))(Schedule)
-
-// export default Schedule
+export default connect(state => ({
+  user: state.user, 
+  schedule: state.schedule.activeTurns,
+  isCancelBookingModalOpen: state.events.view.isCancelBookingModalOpen
+}), {openCancelBookingModal} )(Schedule)

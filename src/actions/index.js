@@ -1,4 +1,4 @@
-import { post, postForm, get } from '../helpers/fetch.js'
+import { post, postForm, postForm2, get } from '../helpers/fetch.js'
 
 export const login = ({ username, password }) => (dispatch) => {
   dispatch({ type: 'LOGIN_REQUEST' })
@@ -17,29 +17,35 @@ export const fetchInitialData = ({servicios, diaDesde, diaHasta}) => async (disp
   // Promise.all([get({}), get({}), get({})])
 
   try {
-    dispatch({ type: 'FETCH_ACTIVE_TURNS_DATA' })
+    // dispatch({ type: 'FETCH_ACTIVE_TURNS_DATA' })
+
+    // Obtener los turnos activos del cliente.
+    // No es necesario iterar por los servicios del cliente (servicios[..]). Todos los servicios devuelven
+    // el mismo resultado.
     const activeTurns = await get({
       url: 'http://api2.tomoturnos.com/api/TurnosOtorgados/GetClienteFull/' + servicios[0].clienteID,
       dispatch,
     })
 
-    console.log("JSON: " + JSON.stringify(activeTurns))
+    // console.log("ACTIVE_TURNS: " + JSON.stringify(activeTurns))
+    console.log('DIA_DESDE:   ' + diaDesde)
+    console.log('DIA_HASTA:   ' + diaHasta)
 
     var formData = new FormData()
     formData.append('servicioID', 4)
     formData.append('diaDesde', diaDesde)
     formData.append('diaHasta', diaHasta)
 
-    dispatch({ type: 'FETCH_CALENDAR_DATA' })
-    const calendar = await postForm({
+    // dispatch({ type: 'FETCH_CALENDAR_DATA' })
+    const calendar = await postForm2({
       url: 'http://api2.tomoturnos.com/api/Calendario',
       formData: formData,
-      success: 'FETCH_CALENDAR_SUCCESS',
-      failure: 'FETCH_CALENDAR_FAILURE',
       dispatch,
     })
 
-    dispatch({ type: 'FETCH_INITIAL_DATA_SUCCESS' })
+    // console.log("CALENDAR: " + JSON.stringify(calendar))
+
+    dispatch({ type: 'FETCH_INITIAL_DATA_SUCCESS', activeTurns, calendar })
   } catch (e) {
     dispatch({ type: 'FETCH_INITIAL_DATA_FAILURE' })
   }

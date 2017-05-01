@@ -28,7 +28,7 @@ const Login = ({ user, login }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <TextField name="username" type="text" floatingLabelText="Email" value="angeles@a"/><br />
+      <TextField name="username" type="text" floatingLabelText="Email" value="angalaa@a"/><br />
       <TextField name="password" type="password" floatingLabelText="Password" value="1"/><br />
       <RaisedButton type="submit" label="Log In" primary={true} style={style}/>
       {user.access_token &&  <Redirect to="/" />}

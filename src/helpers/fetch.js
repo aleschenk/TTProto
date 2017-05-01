@@ -32,6 +32,23 @@ export const post = async ({ url, body, success, failure, dispatch }) => {
   }
 }
 
+export const postForm2 = async ({ url, formData, dispatch }) => {
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Authorization': 'Bearer ' + localStorage.getItem('auth_token')
+      },
+      body: urlencodeFormData(formData),
+    })
+    const data = await res.json()
+    return data
+  } catch (e) {
+    console.log(e.message)
+  }
+}
+
 export const postForm = async ({ url, formData, success, failure, dispatch }) => {
   try {
     const res = await fetch(url, {

@@ -4,20 +4,20 @@ import moment from 'moment'
 import RaisedButton from 'material-ui/RaisedButton';
 
 // ----------------------------------------
-//        SCHEDULE TIME LIST
+//        CALENDAR TIME LIST
 // ----------------------------------------
-const ScheduleTimeList = ({ daysOfMonths, date }) => {
+const CalendarTimeList = ({ daysOfMonths, date }) => {
   // filter the turns of current day
   const dayFiltered = daysOfMonths.find(dateCompare => isSameDate(date, dateCompare.date));
   const turns = dayFiltered.turns;
   return (
     <div className="schedule-time-list">
-      {turns.map(turn => <ScheduleTimeListDate key={hour} isAvailable={turn.isAvailable} hour={turn.date}/>)}
+      {turns.map(turn => <CalendarTimeListDate key={hour} isAvailable={turn.isAvailable} hour={turn.date}/>)}
     </div>
   )
 }
 
-export const ScheduleTimeListDate = ({
+export const CalendarTimeListDate = ({
   hour,
   isAvailable
 }) => {
@@ -35,5 +35,5 @@ export const ScheduleTimeListDate = ({
   )
 }
 
-export default ScheduleTimeList
+export default CalendarTimeList
 

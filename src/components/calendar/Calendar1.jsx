@@ -1,4 +1,4 @@
-class AppTest extends React.Component {
+/*class AppTest extends React.Component {
 
   constructor(props) {
     super(props);
@@ -242,4 +242,4 @@ const daysOfMonths = [{
 ReactDOM.render(
   <AppTest/>,
   document.getElementById('root')
-)
+)*/

@@ -8,10 +8,10 @@ import { connect } from 'react-redux'
 
 import { closeCancelBookingModal } from '../../actions'
 
-const CancelBookingModal = ({isCancelBookingModalOpen, closeCancelBookingModal}) => {
+const BookModal = ({isCancelBookingModalOpen, closeCancelBookingModal}) => {
 
   const handleClose = () => {
-    closeCancelBookingModal()
+    // closeBookModal()
   }
 
   const actions = [
@@ -30,22 +30,22 @@ const CancelBookingModal = ({isCancelBookingModalOpen, closeCancelBookingModal})
 
   return (
     <Dialog
-      title="Cancelar turno"
+      title="Reservar turno"
       actions={actions}
       modal={false}
       open={isCancelBookingModalOpen}
       onRequestClose={handleClose}
     >
-      ¿Esta seguro que desea cancelar este turno?
+      ¿Esta seguro que desea reservar este turno?
     </Dialog>
   )
 
 }
 
-CancelBookingModal.propTypes = {
+BookModal.propTypes = {
   closeCancelBookingModal: React.PropTypes.func.isRequired,
   isCancelBookingModalOpen: React.PropTypes.bool.isRequired
 }
 
 export default connect(state => ({ isCancelBookingModalOpen: state.events.view.isCancelBookingModalOpen }), 
-  { closeCancelBookingModal } )(CancelBookingModal)
+  { closeCancelBookingModal } )(BookModal)

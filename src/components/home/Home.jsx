@@ -1,6 +1,5 @@
 import React from 'react'
 import '../../../styles/index.scss'
-import Schedule from '../schedule/Schedule'
 
 // Redux
 import { connect } from 'react-redux'
@@ -18,7 +17,10 @@ import DatePicker from 'material-ui/DatePicker'
 import { fetchCalendar, fetchInitialData } from '../../actions'
 
 // Views
-import Events from '../events/Events'
+import Schedule from '../schedule/Schedule'
+import Calendar from '../calendar/Calendar'
+
+import moment from 'moment'
 
 const styles = {
   headline: {
@@ -33,10 +35,10 @@ const Menu = () => {
   return (
     <Tabs>
       <Tab label="Agenda">
-        <Events />
+        <Schedule />
       </Tab>
       <Tab label="Agendar nuevo turno">
-        <Schedule />
+        <Calendar />
       </Tab>
     </Tabs>
   )
@@ -49,21 +51,25 @@ class Home extends React.Component {
   }
 
   componentWillReceiveProps() {
+    let diaDesde = moment().toISOString()
+    let diaHasta = moment().add(7, 'days').toISOString()
     //After rendering
-    if (this.props.user.access_token)
+    if (this.props.user.access_token) {
       this.props.dispatch(fetchInitialData({
         servicios: this.props.user.empresas[0].Servicios,
+        diaDesde,
+        diaHasta
         /*servicioID: 4, esto para el fetch calendar*/
-        diaDesde: '2017-04-12T17:06:51.797Z',
-        diaHasta: '2017-04-18T17:06:51.797Z'
-      }
-      ))
+        /*diaDesde: '2017-05-05T17:06:51.797Z',
+        diaHasta: '2017-04-18T17:06:51.797Z'*/
+      }))
+    }
   }
 
   render() {
     return (
       this.props.user.access_token ?
-        <Menu calendar={this.props.calendar} /> :
+        <Menu/> :
         <Redirect to="/login" />
     )
   }

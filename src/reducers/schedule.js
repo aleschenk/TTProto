@@ -11,6 +11,9 @@ const schedule = (state = {}, action) => {
     case 'CALENDAR_FAILURE':
       return {}
 
+    case 'FETCH_INITIAL_DATA_SUCCESS':
+      return Object.assign({}, state, {activeTurns: action.activeTurns}, {calendar: action.calendar} )
+
     default:
       return state;
   }
