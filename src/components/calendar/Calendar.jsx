@@ -18,11 +18,17 @@ const Calendar = ({calendar}) => {
   const callback = ({key}) => {
   }
 
+  const openBookModal = ({servicioID, clienteID, fechaHora }) => {
+    alert('servicioID: ' + servicioID + ' clienteID: ' + clienteID + 'fechaHora: ' + fechaHora)
+    //book
+  }
+
   const DayItems = 
     calendar ? calendar.turnos ? calendar.turnos.map((day) => 
     <TabPane tab={day.FechaStr} key={day.$id}>
       { day.Horarios.map( (horario) => 
         <CalendarTimeListDate 
+                        onBook={ () => openBookModal({servicioID: calendar.servicioID, clienteID: calendar.clienteID, fechaHora: horario.diaHora }) }
                         key={horario.diaHora}
                         hour={horario.diaHora}
                         isAvailable={true}/>

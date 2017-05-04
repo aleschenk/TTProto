@@ -43,7 +43,9 @@ export const fetchInitialData = ({servicios, diaDesde, diaHasta}) => async (disp
       dispatch,
     })
 
-    // console.log("CALENDAR: " + JSON.stringify(calendar))
+    // Ugly Hack:
+    calendar.servicioID = 4
+    calendar.clienteID = servicios[0].clienteID
 
     dispatch({ type: 'FETCH_INITIAL_DATA_SUCCESS', activeTurns, calendar })
   } catch (e) {
