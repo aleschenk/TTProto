@@ -20,6 +20,7 @@ const Calendar = ({calendar}) => {
 
   const openBookModal = ({servicioID, clienteID, fechaHora }) => {
     alert('servicioID: ' + servicioID + ' clienteID: ' + clienteID + 'fechaHora: ' + fechaHora)
+    // dispatch(openBookModal({servicioID, clienteID, fechaHora }))
     //book
   }
 
