@@ -5,11 +5,14 @@ import Tabs, { TabPane } from 'rc-tabs'
 import TabContent from 'rc-tabs/lib/TabContent'
 import ScrollableInkTabBar from 'rc-tabs/lib/ScrollableInkTabBar'
 import { CalendarTimeListDate } from './CalendarTimeList'
+import BookModal from './BookModal'
 
 // Redux
 import { connect } from 'react-redux'
 
-const Calendar = ({calendar}) => {
+import { openBookModal } from '../../actions'
+
+const Calendar = ({calendar, openBookModal}) => {
 
   const isSameDate = (date, dateCompare) => {
     return moment(date).format('YYYYMMDD') === moment(dateCompare).format('YYYYMMDD');
@@ -18,18 +21,15 @@ const Calendar = ({calendar}) => {
   const callback = ({key}) => {
   }
 
-  const openBookModal = ({servicioID, clienteID, fechaHora }) => {
-    alert('servicioID: ' + servicioID + ' clienteID: ' + clienteID + 'fechaHora: ' + fechaHora)
-    // dispatch(openBookModal({servicioID, clienteID, fechaHora }))
-    //book
-  }
+  const handleBookClick = ({servicioID, clienteID, fechaHora }) =>
+    openBookModal({servicioID, clienteID, fechaHora })
 
   const DayItems = 
     calendar ? calendar.turnos ? calendar.turnos.map((day) => 
     <TabPane tab={day.FechaStr} key={day.$id}>
       { day.Horarios.map( (horario) => 
         <CalendarTimeListDate 
-                        onBook={ () => openBookModal({servicioID: calendar.servicioID, clienteID: calendar.clienteID, fechaHora: horario.diaHora }) }
+                        onBook={ () => handleBookClick({servicioID: calendar.servicioID, clienteID: calendar.clienteID, fechaHora: horario.diaHora }) }
                         key={horario.diaHora}
                         hour={horario.diaHora}
                         isAvailable={true}/>
@@ -37,16 +37,19 @@ const Calendar = ({calendar}) => {
     </TabPane>) : <div>Nothing to show</div> : <div>Nothing to show</div>
 
   return (
-    <Tabs
-      defaultActiveKey="2"
-      onChange={callback}
-      renderTabBar={()=><ScrollableInkTabBar />}
-      renderTabContent={()=><TabContent />}
-    >
-    { calendar ?
-        DayItems : <TabPane key='empty' tab='Calendar is empty'/>
-    }
-    </Tabs>
+    <div>
+      <Tabs
+        defaultActiveKey="2"
+        onChange={callback}
+        renderTabBar={()=><ScrollableInkTabBar />}
+        renderTabContent={()=><TabContent />}
+      >
+      { calendar ?
+          DayItems : <TabPane key='empty' tab='Calendar is empty'/>
+      }
+      </Tabs>
+      <BookModal />
+    </div>
   )
 
 }
@@ -55,6 +58,8 @@ Calendar.propTypes = {
    calendar: React.PropTypes.shape({}),
 }
 
-export default connect(state => ({ calendar: state.schedule.calendar }))(Calendar)
+export default connect(
+    state => ({ calendar: state.schedule.calendar }), {openBookModal})
+  (Calendar)
 
 // export default Calendar

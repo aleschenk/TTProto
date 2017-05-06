@@ -68,10 +68,10 @@ export const fetchCalendar = ({servicioID, diaDesde, diaHasta}) => (dispatch) =>
   })
 }
 
-export const book = ({clientID, servicioID, fechaHora}) => (dispatch) => {
-  dispatch({ type: 'BOOKING_REQUEST' })
+export const bookTurn = ({clienteID, servicioID, fechaHora}) => (dispatch) => {
+  //dispatch({ type: 'BOOKING_REQUEST' })
   var formData = new FormData()
-  formData.append('clienteID', clientID)
+  formData.append('clienteID', clienteID)
   formData.append('servicioID', servicioID)
   formData.append('fechaHora', fechaHora)
   postForm({

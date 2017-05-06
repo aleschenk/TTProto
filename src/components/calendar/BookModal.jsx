@@ -6,17 +6,16 @@ import RaisedButton from 'material-ui/RaisedButton';
 // Redux
 import { connect } from 'react-redux'
 
-import { closeBookgModal } from '../../actions'
+import { closeBookModal, bookTurn } from '../../actions'
 
-const BookModal = ({ isBookModalOpen, closeBookgModal, book}) => {
+const BookModal = ({ isBookModalOpen, closeBookModal, bookTurn, book}) => {
 
   const handleClose = () => {
-    // closeBookModal()
+    closeBookModal()
   }
 
   const handleBook = () => {
-    console.log('XXXXXXXXXXX')
-    // book({clientID, servicioID, fechaHora})
+    bookTurn({clienteID: book.clienteID, servicioID: book.servicioID, fechaHora: book.fechaHora})
   }
 
   const actions = [
@@ -53,6 +52,6 @@ BookModal.propTypes = {
 }
 
 export default connect(state => ({ 
-  isCancelBookingModalOpen: state.events.view.isCancelBookingModalOpen,
+  isBookModalOpen: state.events.view.isBookModalOpen,
   book: state.events.view.book }), 
-  { closeBookgModal } )(BookModal)
+  { closeBookModal, bookTurn } )(BookModal)
