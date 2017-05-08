@@ -5,7 +5,7 @@ const events = (state = { view: {isCancelBookingModalOpen: false, isBookModalOpe
   switch (action.type) {
     case 'OPEN_CANCEL_BOOKING_MODAL':
       return Object.assign({}, state, {
-        view: { isCancelBookingModalOpen: true, eventId: action.eventId }
+        view: { isCancelBookingModalOpen: true, cancelBook: {servicioID: action.servicioID, clienteID:action.clienteID, fechaHora:action.fechaHora} }
       })
 
     case 'CLOSE_CANCEL_BOOKING_MODAL':

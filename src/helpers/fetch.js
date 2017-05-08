@@ -22,6 +22,7 @@ export const post = async ({ url, body, success, failure, dispatch }) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('auth_token')
       },
       body: JSON.stringify(body),
     })

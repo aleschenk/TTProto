@@ -31,8 +31,8 @@ const Schedule = ({user, schedule, isCancelBookingModalOpen, openCancelBookingMo
   const fromNow = (date) => 
     prefix(date) + moment(date).fromNow().toString()
 
-  const handleCancelClick = (eventId) => 
-    openCancelBookingModal(eventId)
+  const handleCancelClick = ({clienteID, servicioID, fechaHora, razonCancelacion, cancelacionEnum}) => 
+    openCancelBookingModal({clienteID, servicioID, fechaHora, razonCancelacion, cancelacionEnum})
 
   const iconButtonElement = (
     <IconButton
@@ -45,7 +45,9 @@ const Schedule = ({user, schedule, isCancelBookingModalOpen, openCancelBookingMo
 
   const rightIconMenu = (item) => (
     <IconMenu iconButtonElement={iconButtonElement}>
-      <MenuItem onClick={() => handleCancelClick(item.$id)}>Cancelar turno {item.$id.toString()}</MenuItem>
+      <MenuItem onClick={() => handleCancelClick({clienteID: item.clienteID,
+          servicioID: item.servicioID, fechaHora: item.fechahora,
+          razonCancelacion: '', cancelacionEnum: ''})}>Cancelar turno {item.$id.toString()}</MenuItem>
       <MenuItem>Cambiar de turno</MenuItem>
     </IconMenu>
   )

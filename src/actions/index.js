@@ -94,8 +94,8 @@ export const confirmCancelation = ({clienteID, servicioID, fechaHora, razonCance
   })
 }
 
-export const openCancelBookingModal = (eventId) => (dispatch) => {
-  dispatch({ type: 'OPEN_CANCEL_BOOKING_MODAL', eventId })
+export const openCancelBookingModal = ({clienteID, servicioID, fechaHora}) => (dispatch) => {
+  dispatch({ type: 'OPEN_CANCEL_BOOKING_MODAL', clienteID, servicioID, fechaHora })
 }
 
 export const closeCancelBookingModal = () => (dispatch) => {

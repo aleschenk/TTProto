@@ -6,16 +6,21 @@ import RaisedButton from 'material-ui/RaisedButton';
 // Redux
 import { connect } from 'react-redux'
 
-import { closeCancelBookingModal } from '../../actions'
+import { closeCancelBookingModal, confirmCancelation } from '../../actions'
 
-const CancelBookingModal = ({isCancelBookingModalOpen, closeCancelBookingModal}) => {
+const CancelBookingModal = ({isCancelBookingModalOpen, closeCancelBookingModal, cancelBook, confirmCancelation}) => {
 
   const handleClose = () => {
     closeCancelBookingModal()
   }
 
   const handleCancelTurn = () => {
-    // cancelTurn()
+    // alert('ClienteID: ' + cancelBook.clienteID);
+    confirmCancelation({  clienteID: cancelBook.clienteID
+                        , servicioID: cancelBook.servicioID
+                        , fechaHora: cancelBook.fechaHora
+                        , razonCancelacion: ''
+                        , cancelacionEnum: 'c'});
   }
 
   const actions = [
@@ -28,7 +33,7 @@ const CancelBookingModal = ({isCancelBookingModalOpen, closeCancelBookingModal})
       label="Aceptar"
       primary={true}
       keyboardFocused={true}
-      onTouchTap={handleClose}
+      onTouchTap={handleCancelTurn}
     />,
   ]
 
@@ -48,8 +53,13 @@ const CancelBookingModal = ({isCancelBookingModalOpen, closeCancelBookingModal})
 
 CancelBookingModal.propTypes = {
   closeCancelBookingModal: React.PropTypes.func.isRequired,
+  confirmCancelation: React.PropTypes.func.isRequired,
+  cancelBook: React.PropTypes.func.isRequired,
   isCancelBookingModalOpen: React.PropTypes.bool.isRequired
 }
 
-export default connect(state => ({ isCancelBookingModalOpen: state.events.view.isCancelBookingModalOpen }), 
-  { closeCancelBookingModal } )(CancelBookingModal)
+export default connect(state => ({ 
+  isCancelBookingModalOpen: state.events.view.isCancelBookingModalOpen,
+  cancelBook: state.events.view.cancelBook
+}), 
+  { closeCancelBookingModal, confirmCancelation } )(CancelBookingModal)
